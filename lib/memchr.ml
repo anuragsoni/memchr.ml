@@ -59,3 +59,12 @@ module String = Make (struct
     = "string_memchr"
     [@@noalloc]
 end)
+
+module Bytes = Make (struct
+  type t = bytes
+
+  let total_length t = Bytes.length t
+
+  external unsafe_find : t -> char -> pos:int -> len:int -> int = "bytes_memchr"
+    [@@noalloc]
+end)

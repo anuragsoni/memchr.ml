@@ -19,7 +19,12 @@ module type S = sig
   type haystack
 
   val unsafe_find : haystack -> char -> pos:int -> len:int -> Optional_index.t
+  (** [unsafe_find] searches for a byte using [memchr]. This function does not
+      perform bounds checking before calling memchr. *)
+
   val find : haystack -> char -> pos:int -> len:int -> Optional_index.t
+  (** [find] searches for a byte using [memchr]. This function performs bounds
+      checking before calling memchr. *)
 end
 
 module Bigstring : S with type haystack := bigstring
