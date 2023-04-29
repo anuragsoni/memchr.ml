@@ -29,3 +29,4 @@ end
 
 module Bigstring : S with type haystack := bigstring
 module String : S with type haystack := string
+module Bytes : S with type haystack := bytes
