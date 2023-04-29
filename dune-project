@@ -5,22 +5,18 @@
 (generate_opam_files true)
 
 (source
- (github username/reponame))
+ (github anuragsoni/memchr.ml))
 
-(authors "Author Name")
+(authors "Anurag Soni")
 
-(maintainers "Maintainer Name")
+(maintainers "Anurag Soni <anurag@sonianurag.com>")
 
-(license LICENSE)
-
-(documentation https://url/to/documentation)
+(license BSD-3-clause)
 
 (package
  (name memchr)
- (synopsis "A short synopsis")
- (description "A longer description")
- (depends ocaml dune)
+ (synopsis "OCaml bindings to c standard library's memchr.")
+ (depends (ocaml (>= 4.11.0)))
  (tags
-  (topics "to describe" your project)))
+  (memchr)))
 
-; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project
