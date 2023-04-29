@@ -1,0 +1,5 @@
+(library
+ (public_name memchr)
+ (foreign_stubs
+  (language c)
+  (names memchr_stubs)))
