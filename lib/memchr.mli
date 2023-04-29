@@ -6,6 +6,7 @@ module Optional_index : sig
 
   val is_none : t -> bool
   val is_some : t -> bool
+  val to_int : t -> int option
 
   module Optional_syntax : sig
     val is_none : t -> bool
@@ -18,7 +19,7 @@ module type S = sig
   type haystack
 
   val unsafe_find : haystack -> char -> pos:int -> len:int -> Optional_index.t
-  val find : haystack -> char -> pos:int -> len:int -> int option
+  val find : haystack -> char -> pos:int -> len:int -> Optional_index.t
 end
 
 module Bigstring : S with type haystack := bigstring

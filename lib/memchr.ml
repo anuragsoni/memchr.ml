@@ -6,6 +6,7 @@ module Optional_index = struct
 
   let is_none t = t < 0
   let is_some t = t >= 0
+  let to_int t = if is_none t then None else Some t
 
   module Optional_syntax = struct
     let is_none t = is_none t
@@ -18,7 +19,7 @@ module type S = sig
   type haystack
 
   val unsafe_find : haystack -> char -> pos:int -> len:int -> Optional_index.t
-  val find : haystack -> char -> pos:int -> len:int -> int option
+  val find : haystack -> char -> pos:int -> len:int -> Optional_index.t
 end
 
 module type T = sig
@@ -36,8 +37,7 @@ module Make (T : T) : S with type haystack := T.t = struct
     if len < 0 then invalid_arg "Negative len";
     if pos > T.total_length t - len then
       invalid_arg "pos + len is greater than total_length";
-    let idx = unsafe_find t ch ~pos ~len in
-    if idx < 0 then None else Some idx
+    unsafe_find t ch ~pos ~len
 end
 
 module Bigstring = Make (struct
