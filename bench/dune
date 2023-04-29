@@ -1,4 +1,5 @@
 (executable
  (name main)
- (preprocess (pps ppx_optional))
+ (preprocess
+  (pps ppx_optional))
  (libraries core_bench core_unix.command_unix memchr))

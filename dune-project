@@ -16,7 +16,10 @@
 (package
  (name memchr)
  (synopsis "OCaml bindings to c standard library's memchr.")
- (depends (ocaml (>= 4.11.0)))
- (tags
-  (memchr)))
-
+ (depends
+  (ocaml
+   (>= 4.11.0))
+  (core :with-test)
+  (core_bench :with-test)
+  (ppx_jane :with-test))
+ (tags (memchr)))

@@ -1,0 +1,6 @@
+(library
+ (name test_memchr)
+ (preprocess
+  (pps ppx_jane))
+ (inline_tests)
+ (libraries core memchr))
