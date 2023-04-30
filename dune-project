@@ -15,7 +15,7 @@
 
 (package
  (name memchr)
- (synopsis "OCaml bindings to c standard library's memchr.")
+ (synopsis "OCaml bindings to c standard library's memchr")
  (depends
   (ocaml
    (>= 4.11.0))
