@@ -1,5 +1,7 @@
 (library
  (public_name memchr)
+ (js_of_ocaml
+  (javascript_files runtime.js))
  (foreign_stubs
   (language c)
   (names memchr_stubs)))
