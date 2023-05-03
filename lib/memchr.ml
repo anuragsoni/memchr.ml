@@ -15,6 +15,12 @@ module Optional_index = struct
   end
 end
 
+let validate_pos_len ~pos ~len ~total_length =
+  if pos < 0 then invalid_arg "Negative pos";
+  if len < 0 then invalid_arg "Negative len";
+  if pos > total_length - len then
+    invalid_arg "pos + len is greater than total_length"
+
 module type S = sig
   type haystack
 
@@ -22,49 +28,32 @@ module type S = sig
   val find : haystack -> char -> pos:int -> len:int -> Optional_index.t
 end
 
-module type T = sig
-  type t
-
-  val unsafe_find : t -> char -> pos:int -> len:int -> int
-  val total_length : t -> int
-end
-
-module Make (T : T) : S with type haystack := T.t = struct
-  let unsafe_find = T.unsafe_find
+module Bigstring = struct
+  external unsafe_find : bigstring -> char -> pos:int -> len:int -> int
+    = "bigstring_memchr"
+    [@@noalloc]
 
   let find t ch ~pos ~len =
-    if pos < 0 then invalid_arg "Negative pos";
-    if len < 0 then invalid_arg "Negative len";
-    if pos > T.total_length t - len then
-      invalid_arg "pos + len is greater than total_length";
+    validate_pos_len ~pos ~len ~total_length:(Bigarray.Array1.dim t);
     unsafe_find t ch ~pos ~len
 end
 
-module Bigstring = Make (struct
-  type t = bigstring
-
-  let total_length t = Bigarray.Array1.dim t
-
-  external unsafe_find : t -> char -> pos:int -> len:int -> int
-    = "bigstring_memchr"
-    [@@noalloc]
-end)
-
-module String = Make (struct
-  type t = string
-
-  let total_length t = String.length t
-
-  external unsafe_find : t -> char -> pos:int -> len:int -> int
+module String = struct
+  external unsafe_find : string -> char -> pos:int -> len:int -> int
     = "string_memchr"
     [@@noalloc]
-end)
 
-module Bytes = Make (struct
-  type t = bytes
+  let find t ch ~pos ~len =
+    validate_pos_len ~pos ~len ~total_length:(String.length t);
+    unsafe_find t ch ~pos ~len
+end
 
-  let total_length t = Bytes.length t
-
-  external unsafe_find : t -> char -> pos:int -> len:int -> int = "bytes_memchr"
+module Bytes = struct
+  external unsafe_find : bytes -> char -> pos:int -> len:int -> int
+    = "bytes_memchr"
     [@@noalloc]
-end)
+
+  let find t ch ~pos ~len =
+    validate_pos_len ~pos ~len ~total_length:(Bytes.length t);
+    unsafe_find t ch ~pos ~len
+end
