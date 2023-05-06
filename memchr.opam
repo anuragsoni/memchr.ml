@@ -8,9 +8,10 @@ tags: ["memchr"]
 homepage: "https://github.com/anuragsoni/memchr.ml"
 bug-reports: "https://github.com/anuragsoni/memchr.ml/issues"
 depends: [
-  "dune" {>= "3.7"}
+  "dune" {>= "3.0"}
   "ocaml" {>= "4.11.0"}
   "core" {with-test}
+  "ppx_optional" {with-test}
   "core_bench" {with-test}
   "ppx_jane" {with-test}
   "odoc" {with-doc}

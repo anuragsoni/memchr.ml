@@ -1,8 +1,10 @@
-(lang dune 3.7)
+(lang dune 3.0)
 
 (name memchr)
 
 (generate_opam_files true)
+
+(using mdx 0.2)
 
 (source
  (github anuragsoni/memchr.ml))
@@ -20,6 +22,7 @@
   (ocaml
    (>= 4.11.0))
   (core :with-test)
+  (ppx_optional :with-test)
   (core_bench :with-test)
   (ppx_jane :with-test))
  (tags (memchr)))
