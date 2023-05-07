@@ -1,6 +1,3 @@
-type bigstring =
-  (char, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t
-
 module Optional_index = struct
   type t = int
 
@@ -29,8 +26,12 @@ module type S = sig
 end
 
 module Bigstring = struct
-  external unsafe_find : bigstring -> char -> pos:int -> len:int -> int
-    = "bigstring_memchr"
+  external unsafe_find :
+    (char, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t ->
+    char ->
+    pos:int ->
+    len:int ->
+    int = "bigstring_memchr"
     [@@noalloc]
 
   let find t ch ~pos ~len =
