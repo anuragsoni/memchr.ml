@@ -12,9 +12,11 @@
 module Optional_index : sig
   type t
 
+  val none : t
   val is_none : t -> bool
   val is_some : t -> bool
   val to_int : t -> int option
+  val of_int : int -> t
 
   module Optional_syntax : sig
     val is_none : t -> bool

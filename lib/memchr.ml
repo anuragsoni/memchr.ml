@@ -1,9 +1,11 @@
 module Optional_index = struct
   type t = int
 
+  let none = -1
   let is_none t = t < 0
   let is_some t = t >= 0
   let to_int t = if is_none t then None else Some t
+  let of_int t = t
 
   module Optional_syntax = struct
     let is_none t = is_none t
