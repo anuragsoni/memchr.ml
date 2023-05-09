@@ -10,6 +10,7 @@ bug-reports: "https://github.com/anuragsoni/memchr.ml/issues"
 depends: [
   "dune" {>= "3.0"}
   "ocaml" {>= "4.11.0"}
+  "mdx" {with-test}
   "core" {with-test}
   "ppx_optional" {with-test}
   "core_bench" {with-test}

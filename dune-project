@@ -21,6 +21,7 @@
  (depends
   (ocaml
    (>= 4.11.0))
+  (mdx :with-test)
   (core :with-test)
   (ppx_optional :with-test)
   (core_bench :with-test)
