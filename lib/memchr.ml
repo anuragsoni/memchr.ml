@@ -20,13 +20,6 @@ let validate_pos_len ~pos ~len ~total_length =
   if pos > total_length - len then
     invalid_arg "pos + len is greater than total_length"
 
-module type S = sig
-  type haystack
-
-  val unsafe_find : haystack -> char -> pos:int -> len:int -> Optional_index.t
-  val find : haystack -> char -> pos:int -> len:int -> Optional_index.t
-end
-
 module Bigstring = struct
   external unsafe_find :
     (char, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t ->
